@@ -17,6 +17,7 @@ node('node'){
       } catch(err) {
          sh "echo error in defining maven"
       }
+   }    
 
    stage('test case and report'){
       try {
