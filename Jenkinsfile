@@ -48,7 +48,7 @@ node('node'){
          sh "docker push pratima1/archiveartifacts:newtag"
          }
       }  catch(err) {
-           shh "echo error in deployment using docker"
+           sh "echo error in deployment using docker"
       }
    }
 } 
