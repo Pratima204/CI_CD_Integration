@@ -36,4 +36,4 @@ node('node'){
          archiveArtifacts allowEmptyArchive: true, artifacts: 'addressbook_main/target/**/*.war'
       } catch(err)
          sh "echo error in packaging and generating artifacts"
-   }
+      }
