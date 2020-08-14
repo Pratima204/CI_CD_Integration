@@ -29,11 +29,12 @@ node('node'){
          throw err  
       }
    }
-}
+
    stage('package and generate artifacts'){
       try { 
          sh "$mvnHome/bin/mvn clean package -DskipTests=true"
          archiveArtifacts allowEmptyArchive: true, artifacts: 'addressbook_main/target/**/*.war'
       } catch(err)
          sh "echo error in packaging and generating artifacts"
-      }
+   }
+}
