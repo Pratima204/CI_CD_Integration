@@ -39,7 +39,7 @@ node('node'){
       }
    }
 
-   stage('deployment of application using docker'){
+   stage('decker build and push'){
       try {
          sh "docker version"
          sh "docker build -t pratima1/archiveartifacts:newtag -f Dockerfile ."
@@ -47,8 +47,22 @@ node('node'){
          withDockerRegistry(credentialsId: 'docker-hub-registry') {
          sh "docker push pratima1/archiveartifacts:newtag"
          }
-      }  catch(err) {
+      }  catch(err){
            sh "echo error in deployment using docker"
+      }
+   }
+
+   stage()
+
+   stage('artifacts to s3'){
+      try {
+         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'deploytos3', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+            sh "aws s3 ls"
+            sh "aws s3 mb s3://cloudyet-bucket-for-aws"
+            sh "aws s3 cp addressbook_main/target/addressbook.war s3://cloudyet-bucket-for-aws"
+         }
+      }  catch(err) {
+            sh "echo error in sending artifacts to s3"
       }
    }
 } 
