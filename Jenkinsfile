@@ -38,4 +38,17 @@ node ('node'){
          sh "echo error in packaging and generating artifacts"
       }
    }
+
+   stag('deployment of application using docker'){
+      try {
+         sh "docker version"
+         sh "docker build -t pratima/archiveartifacts:newtag -f Dockerfile ."
+         sh "docker run -p 8080:8080 -d pratima/archiveartifacts:newtag"
+         withDockerRegistry(credentialsId: 'docker-hub-registry') {
+         sh "docker push pratima/archiveartifacts:newtag"
+         }
+      } catch(err) {
+         sh "echo error in deployment using docker"
+      }
+   }
 }
