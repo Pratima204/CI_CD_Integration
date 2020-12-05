@@ -39,7 +39,7 @@ node ('node'){
       }
    }
 
-   stag('deployment of application using docker'){
+   stage('deployment of application using docker'){
       try {
          sh "docker version"
          sh "docker build -t pratima/archiveartifacts:newtag -f Dockerfile ."
