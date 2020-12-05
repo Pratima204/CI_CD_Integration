@@ -44,7 +44,7 @@ node ('node'){
          sh "docker version"
          sh "docker build -t pratima/archiveartifacts:newtag -f Dockerfile ."
          sh "docker run -p 8080:8080 -d pratima/archiveartifacts:newtag"
-         withDockerRegistry(credentialsId: 'docker-hub-registry') {
+         withDockerRegistry(credentialsId: 'docker-hub-registry1') {
          sh "docker push pratima/archiveartifacts:newtag"
          }
       } catch(err) {
